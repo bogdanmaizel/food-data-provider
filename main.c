@@ -12,42 +12,41 @@ int main() {
     //read no of foods
     int noOfFoods;
     printf("Please input number of food types\n");
-    scanf("%d",&noOfFoods);
+    scanf("%d", &noOfFoods);
 
     //read foods
-    char ** foods;
-    foods = (char**)malloc(noOfFoods* sizeof(char*));
+    char **foods;
+    foods = (char **) malloc(noOfFoods * sizeof(char *));
     printf("Please input the food types (each on a new line, may contain spaces)\n");
-    for(int i=0;i<noOfFoods;i++) {
+    for (int i = 0; i < noOfFoods; i++) {
         // read each FOOD
-        foods[i] = (char*)malloc(MAX_FOOD_NAME* sizeof(char));
-        scanf("%s",foods[i]);
-        getchar();
+        foods[i] = (char *) malloc(MAX_FOOD_NAME * sizeof(char));
+        scanf("%s", foods[i]);
     }
 
-    int * noOfmeals = (int*)malloc(noOfFoods * sizeof(int));
-    char *** meals = (char***)malloc(noOfFoods * sizeof(char**));
-    double ** prices = (double**)malloc(noOfFoods* sizeof(double*));
-    for(int i=0; i<noOfFoods; i++) {
-        // read no of meals
-        printf("Please input no of speciffic foods for food %s\n",foods[i]);
-        scanf("%d",&noOfmeals[i]);
-        getchar();
+    int *noOfmeals = (int *) malloc(noOfFoods * sizeof(int));
+    char ***meals = (char ***) malloc(noOfFoods * sizeof(char **));
+    double **prices = (double **) malloc(noOfFoods * sizeof(double *));
+    for (int i = 0; i < noOfFoods; i++) {
+            // read no of meals
+            printf("Please input no of speciffic foods for food %s\n",foods[i]);
+            scanf("%d",&noOfmeals[i]);
 
-        //read meals & prices
-        meals[i] = (char**)malloc(noOfmeals[i]* sizeof(char*));
-        prices[i] = (double*)malloc(noOfmeals[i]* sizeof(double));
+            //read meals & prices
+            meals[i] = (char**)malloc(noOfmeals[i]* sizeof(char*));
+            prices[i] = (double*)malloc(noOfmeals[i]* sizeof(double));
 
-        printf("Please input %s speciffic foods &prices: each line in the format <speciffic food> (price):\n", foods[i]);
-        for(int j=0;j<noOfmeals[i];j++){
-            meals[i][j] = (char*)malloc(MAX_MEAL_NAME* sizeof(char));
-            readMeal(meals[i][j]);
-            char line[MAX_LINE];
-            gets(line);
-            scanf("%1f", prices[i][j]);
-            getchar();
+            printf("Please input %s speciffic foods &prices: each line in the format <speciffic food> (price):\n", foods[i]);
+            for(int j=0;j<noOfmeals[i];j++){
+                meals[i][j] = (char*)malloc(MAX_MEAL_NAME* sizeof(char));
+                char line[MAX_LINE];
+                gets(line);
+                sscanf(line, "%s", meals[i][j]);
+                line[strlen(line)]='\0';
+                sscanf(line, "%1f", prices[i][j]);
+            }
+
         }
-    }
 
     // display data
     printf("The data is:\n");
