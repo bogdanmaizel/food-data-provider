@@ -30,9 +30,9 @@ int main() {
     for (int i = 0; i < noOfFoods; i++) {
             // read no of meals
             printf("Please input no of speciffic foods for food %s\n",foods[i]);
-            scanf("%d",&noOfmeals[i]);
+            scanf("%d", &noOfmeals[i]);
             getchar();
-            //read meals & prices todo: figure this out
+            //read meals & prices
             meals[i] = (char**)malloc(noOfmeals[i]* sizeof(char*));
             prices[i] = (double*)malloc(noOfmeals[i]* sizeof(double));
 
@@ -41,17 +41,14 @@ int main() {
                 meals[i][j] = (char*)malloc(MAX_MEAL_NAME* sizeof(char));
                 char line[MAX_LINE];
                 gets(line);
-                sscanf(line, "%s", meals[i][j]);
-                line[strlen(line)-1]='\0';
-                line[strlen(meals[i][j]+1)]=line[strlen(meals[i][j]+2)]='\0';
-                sscanf(line + strlen(meals[i][j]) + 1, "%1f", prices[i][j]);
+                sscanf(line, "%s (%lf)\n", meals[i][j], &prices[i][j]);
             }
 
         }
     //read drinks
     int noOfDrinks;
     printf("Please input number of drinks.\n");
-    scanf("%d", noOfDrinks);
+    scanf("%d", &noOfDrinks);
     char **drinks=(char**)malloc(noOfDrinks*sizeof(char*));
     double *drinksPrices=(double*)malloc(noOfDrinks* sizeof(double));
     getchar();
@@ -60,7 +57,7 @@ int main() {
         char line[MAX_LINE];
         gets(line);
         drinks[i]=(char*)malloc(MAX_FOOD_NAME* sizeof(char));
-        sscanf(line, "%s", drinks[i]);
+        sscanf(line, "%s (%lf)\n", drinks[i], &drinksPrices[i]);
     }
 
 
@@ -74,9 +71,19 @@ int main() {
         }
         printf("\n");
     }
+    printf("Drinks: ");
+    for (int i=0;i<noOfDrinks;++i) {
+        // display drinks
+        printf("%s, ", drinks[i]);
+    }
+    printf("\nPrices: ");
+    for (int i=0;i<noOfDrinks;++i) {
+        printf("%.2lf, ", drinksPrices[i]);
+    }
 
     // free memory
-    /*for(int i=0;i<noOfFoods;i++) {
+    /// da eroare for some reason
+    for(int i=0;i<noOfFoods;i++) {
         for(int j=0;j<noOfmeals;j++) {
             free(meals[i][j]);
         }
@@ -87,7 +94,7 @@ int main() {
     free(meals);
     free(prices);
     free(foods);
-    free(noOfmeals);*/
+    free(noOfmeals);
 
     return 0;
 }
