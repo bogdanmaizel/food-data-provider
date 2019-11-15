@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 #define MAX_FOOD_NAME 10
 #define MAX_MEAL_NAME 20
@@ -82,7 +81,6 @@ int main() {
     }
 
     // free memory
-    /// da eroare for some reason
     for(int i=0;i<noOfFoods;i++) {
         for(int j=0;j<noOfmeals;j++) {
             free(meals[i][j]);
@@ -95,7 +93,10 @@ int main() {
     free(prices);
     free(foods);
     free(noOfmeals);
-
+    for (int i=0;i<noOfDrinks;++i)
+        free(drinks[i]);
+    free(drinks);
+    free(drinksPrices);
     return 0;
 }
 
