@@ -4,9 +4,8 @@
 #define MAX_FOOD_NAME 10
 #define MAX_MEAL_NAME 20
 #define MAX_LINE 25
-
 int main() {
-
+    FILE *f=fopen("C:\\00SCHOOL\\CP\\food-data-provider\\data.txt", "w");
     //read no of foods
     int noOfFoods;
     printf("Please input number of food types\n");
@@ -61,42 +60,19 @@ int main() {
 
 
     // display data
-    printf("The data is:\n");
+    fprintf(f, "%d:\n", noOfFoods);
     for(int i=0;i<noOfFoods;i++) {
         // display FOOD
-        printf("%s: ", foods[i]);
-        for(int j=0;j<noOfmeals[i];j++) {
-            printf("(%s - %.2lf) ",meals[i][j],prices[i][j]);
+        fprintf(f, "%s %d:", foods[i], noOfmeals[i]);
+        for (int j = 0; j < noOfmeals[i]; j++) {
+            fprintf(f, " (%s - %.2lf),", meals[i][j], prices[i][j]);
         }
-        printf("\n");
+        fprintf(f, "\n");
     }
-    printf("Drinks: ");
+    fprintf(f, "%d:\n", noOfDrinks);
     for (int i=0;i<noOfDrinks;++i) {
         // display drinks
-        printf("%s, ", drinks[i]);
+        fprintf(f, "(%s - %.2lf) ", drinks[i], drinksPrices[i]);
     }
-    printf("\nPrices: ");
-    for (int i=0;i<noOfDrinks;++i) {
-        printf("%.2lf, ", drinksPrices[i]);
-    }
-
-    // free memory
-    for(int i=0;i<noOfFoods;i++) {
-        for(int j=0;j<noOfmeals;j++) {
-            free(meals[i][j]);
-        }
-        free(meals[i]);
-        free(prices[i]);
-        free(foods[i]);
-    }
-    free(meals);
-    free(prices);
-    free(foods);
-    free(noOfmeals);
-    for (int i=0;i<noOfDrinks;++i)
-        free(drinks[i]);
-    free(drinks);
-    free(drinksPrices);
-    return 0;
 }
 
